@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, {useCallback, useState} from 'react'
 import {useOutletContext} from "react-router";
 import {CheckCircle2, ImageIcon, UploadIcon} from "lucide-react";
 import {PROGRESS_INCREMENT, REDIRECT_DELAY_MS, PROGRESS_INTERVAL_MS} from "../lib/constants";
@@ -11,23 +11,9 @@ const Upload = ({ onComplete }: UploadProps) => {
     const [file, setFile] = useState<File | null>(null);
     const [isDragging, setIsDragging] = useState(false);
     const [progress, setProgress] = useState(0);
-    const intervalRef = useRef<NodeJS.Timeout | null>(null);
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const { isSignedIn } = useOutletContext<AuthContext>();
 
-    useEffect(() => {
-        return () => {
-            if (intervalRef.current) {
-                clearInterval(intervalRef.current);
-                intervalRef.current = null;
-            }
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current);
-                timeoutRef.current = null;
-            }
-        };
-    }, []);
 
     const processFile = useCallback((file: File) => {
         if (!isSignedIn) return;
@@ -36,24 +22,16 @@ const Upload = ({ onComplete }: UploadProps) => {
         setProgress(0);
 
         const reader = new FileReader();
-        reader.onerror = () => {
-            setFile(null);
-            setProgress(0);
-        };
         reader.onloadend = () => {
             const base64Data = reader.result as string;
 
-            intervalRef.current = setInterval(() => {
+            const interval = setInterval(() => {
                 setProgress((prev) => {
                     const next = prev + PROGRESS_INCREMENT;
                     if (next >= 100) {
-                        if (intervalRef.current) {
-                            clearInterval(intervalRef.current);
-                            intervalRef.current = null;
-                        }
-                        timeoutRef.current = setTimeout(() => {
-                            onComplete?.(base64Data);
-                            timeoutRef.current = null;
+                            clearInterval(interval);
+                            setTimeout(() => {
+                                onComplete?.(base64Data);
                         }, REDIRECT_DELAY_MS);
                         return 100;
                     }
@@ -81,8 +59,7 @@ const Upload = ({ onComplete }: UploadProps) => {
         if (!isSignedIn) return;
 
         const droppedFile = e.dataTransfer.files[0];
-        const allowedTypes = ['image/jpeg', 'image/png'];
-        if (droppedFile && allowedTypes.includes(droppedFile.type)) {
+        if (droppedFile && droppedFile.type.startsWith('image')) {
             processFile(droppedFile);
         }
     };
@@ -110,9 +87,8 @@ const Upload = ({ onComplete }: UploadProps) => {
                         className="drop-input"
                         accept=".jpg,.jpeg,.png,.webp"
                         disabled={!isSignedIn}
-                        onChange={handleChange}
+                        onChange={handleChange}      // ← добавлено
                     />
-
                     <div className="drop-content">
                         <div className="drop-icon">
                             <UploadIcon size={20} />
@@ -120,7 +96,9 @@ const Upload = ({ onComplete }: UploadProps) => {
                         <p>
                             {isSignedIn ? (
                                 "Click to upload or just drag and drop"
-                            ): ("Sign in or sign up with Puter to upload")}
+                            ) : (
+                                "Sign in or sign up with Puter to upload"
+                            )}
                         </p>
                         <p className="help">Maximum file size 50 MB.</p>
                     </div>
