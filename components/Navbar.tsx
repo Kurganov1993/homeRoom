@@ -1,25 +1,24 @@
-import {Box} from "lucide-react";
+import { Box } from "lucide-react";
 import Button from "./ui/Button";
-import {useOutletContext} from "react-router";
+import { useOutletContext } from "react-router";
 
 const Navbar = () => {
-    const { isSignedIn, userName, signIn, signOut } = useOutletContext<AuthContext>()
+    const { isSignedIn, userName, signIn, signOut } = useOutletContext<AuthContext>();
 
     const handleAuthClick = async () => {
-        if(isSignedIn) {
+        if (isSignedIn) {
             try {
                 await signOut();
             } catch (e) {
-                console.error(`Puter sign out failed: ${e}`);
+                console.error(`Ошибка выхода из Puter: ${e}`);
             }
-
             return;
         }
 
         try {
             await signIn();
         } catch (e) {
-            console.error(`Puter sign in failed: ${e}`);
+            console.error(`Ошибка входа через Puter: ${e}`);
         }
     };
 
@@ -28,17 +27,14 @@ const Navbar = () => {
             <nav className="inner">
                 <div className="left">
                     <div className="brand">
-                        <Box  className="logo" />
-
-                        <span className="name">
-                            Roomify
-                        </span>
+                        <Box className="logo" />
+                        <span className="name">Roomify</span>
                     </div>
 
                     <ul className="links">
-                        <a href="#">Product</a>
-                        <a href="#">Pricing</a>
-                        <a href="#">Community</a>
+                        <a href="#">Продукт</a>
+                        <a href="#">Цены</a>
+                        <a href="#">Сообщество</a>
                         <a href="#">Enterprise</a>
                     </ul>
                 </div>
@@ -47,26 +43,24 @@ const Navbar = () => {
                     {isSignedIn ? (
                         <>
                             <span className="greeting">
-                                {userName ? `Hi, ${userName}` : 'Signed in'}
+                                {userName ? `Привет, ${userName}` : 'Вы вошли'}
                             </span>
-
                             <Button size="sm" onClick={handleAuthClick} className="btn">
-                                Log Out
+                                Выйти
                             </Button>
                         </>
                     ) : (
                         <>
                             <Button onClick={handleAuthClick} size="sm" variant="ghost">
-                                Log In
+                                Войти
                             </Button>
-
-                            <a href="#upload" className="cta">Get Started</a>
+                            <a href="#upload" className="cta">Начать</a>
                         </>
                     )}
                 </div>
             </nav>
         </header>
-    )
-}
+    );
+};
 
-export default Navbar
+export default Navbar;
