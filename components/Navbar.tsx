@@ -2,7 +2,6 @@ import {Box} from "lucide-react";
 import Button from "./ui/Button";
 import {useOutletContext} from "react-router";
 
-
 const Navbar = () => {
     const { isSignedIn, userName, signIn, signOut } = useOutletContext<AuthContext>()
 
@@ -23,7 +22,6 @@ const Navbar = () => {
             console.error(`Puter sign in failed: ${e}`);
         }
     };
-
 
     return (
         <header className="navbar">
