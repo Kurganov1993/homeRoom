@@ -1,0 +1,49 @@
+# Roomify
+
+<p align="center">
+  <img src="https://via.placeholder.com/200x200?text=Roomify" alt="Roomify Logo" width="200" height="200">
+</p>
+
+<p align="center">
+  <strong>Среда проектирования интерьеров на основе ИИ</strong>
+</p>
+
+<p align="center">
+  <a href="#"><img src="https://img.shields.io/badge/version-2.0.0-blue" alt="Version"></a>
+  <a href="#"><img src="https://img.shields.io/badge/license-MIT-green" alt="License"></a>
+  <a href="#"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen" alt="PRs Welcome"></a>
+</p>
+
+Roomify — это веб-приложение, которое позволяет быстро создавать визуализации интерьеров на основе загруженных планов помещений. Благодаря интеграции с ИИ, вы можете получить готовый рендер пространства всего за несколько секунд.
+
+![Демонстрация работы](https://via.placeholder.com/800x400?text=Roomify+Screenshot)
+
+## ✨ Основные возможности
+
+- **Загрузка плана помещения** — поддержка JPG, PNG до 10 МБ.
+- **Мгновенная визуализация** — ИИ преобразует чертёж в фотореалистичное изображение.
+- **Управление проектами** — все созданные проекты сохраняются в личном кабинете.
+- **Просмотр и редактирование** — возможность повторно открыть проект и изменить настройки рендера.
+- **Современный адаптивный дизайн** — удобная работа с любого устройства.
+
+## 🛠 Технологический стек
+
+- **Frontend**: React 19, React Router 7, TypeScript
+- **Стилизация**: Tailwind CSS, Lucide React (иконки)
+- **Сборка**: Vite (предположительно)
+- **Бэкенд/API**: интеграция через `puter.action` (собственное API)
+- **Деплой**: (добавить платформу, если известно, например Vercel)
+
+## 🚀 Быстрый старт
+
+### Предварительные требования
+
+- Node.js 18+ и npm/yarn/pnpm
+- Доступ к API (для работы с проектами)
+
+### Установка
+
+1. Клонируйте репозиторий:
+   ```bash
+   git clone https://github.com/your-username/roomify.git
+   cd roomify
