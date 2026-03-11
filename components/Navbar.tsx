@@ -31,12 +31,7 @@ const Navbar = () => {
                         <span className="name">Roomify</span>
                     </div>
 
-                    <ul className="links">
-                        <a href="#">Продукт</a>
-                        <a href="#">Цены</a>
-                        <a href="#">Сообщество</a>
-                        <a href="#">Enterprise</a>
-                    </ul>
+                    
                 </div>
 
                 <div className="actions">
