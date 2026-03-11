@@ -1,8 +1,6 @@
 # Roomify
 
-<p align="center">
-  <img src="https://via.placeholder.com/200x200?text=Roomify" alt="Roomify Logo" width="200" height="200">
-</p>
+
 
 <p align="center">
   <strong>Среда проектирования интерьеров на основе ИИ</strong>
@@ -47,3 +45,4 @@ Roomify — это веб-приложение, которое позволяе�
    ```bash
    git clone https://github.com/your-username/roomify.git
    cd roomify
+
